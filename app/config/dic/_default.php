@@ -231,7 +231,7 @@ if (len > 0) {
                 'label_class' => 'normal_checkbox',
             ),
 
-            'scope_id' => array(
+            'scope_ids' => array(
                 'title' => 'Группа чекбоксов',
                 'type' => 'checkboxes',
                 'columns' => 2, ## Количество колонок

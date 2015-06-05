@@ -56,4 +56,11 @@ return array(
         'theme_path' => URL::to('/theme/mobile/dist'),
     ],
 
+
+    'brand_type' => [
+        'international' => 'Международные бренды',
+        'national'      => 'Национальные бренды',
+        'others'        => 'Другие бренды',
+    ],
+
 );

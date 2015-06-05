@@ -20,29 +20,27 @@ return array(
                     return $value ? date('d.m.Y', strtotime($value)) : date('d.m.Y');
                 },
             ),
-            'preview' => array(
-                'title' => 'Анонс новости',
-                'type' => 'textarea',
+            'link_to_file' => array(
+                'title' => 'Файл аттача',
+                'type' => 'upload',
+                'accept' => '*', # .exe,image/*,video/*,audio/*
+                'label_class' => 'input-file',
+                'handler' => function($value, $element = false) {
+                    if (@is_object($element) && @is_array($value)) {
+                        $value['module'] = 'DicVal';
+                        $value['unit_id'] = $element->id;
+                    }
+                    return ExtForm::process('upload', $value);
+                },
             ),
-            'content' => array(
-                'title' => 'Полный текст новости',
-                'type' => 'textarea_redactor',
-            ),
-            /*
-            'image' => array(
-                'title' => 'Изображение',
-                'type' => 'image',
-            ),
-            */
         );
     },
 
-    'slug_label' => 'URL записи',
-
+    /*
     'second_line_modifier' => function($line, $dic, $dicval) {
-        #Helper::ta($dicval);
         return (isset($dicval->published_at) && $dicval->published_at ? '<i>' . $dicval->published_at . '</i> &mdash; ' : '') . $dicval->slug;
     },
+    */
 
-    'seo' => ['title', 'description', 'keywords'],
+    #'seo' => ['title', 'description', 'keywords'],
 );

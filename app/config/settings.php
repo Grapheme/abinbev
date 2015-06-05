@@ -12,7 +12,7 @@ return array(
                 #'description' => 'Здесь собраны основные настройки сайта',
                 'options' => array(
                     [
-                        'group_title' => 'Первая секция',
+                        'group_title' => 'Настройки почты',
                         'style' => 'margin: 0 0 5px 0',
                     ],
 

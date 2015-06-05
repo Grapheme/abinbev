@@ -307,6 +307,7 @@ class AdminPagesPageController extends BaseController {
                     $page_meta = $this->pages_meta->where('page_id', $element->id)->where('language', $locale_sign)->first();
 
                     ## Сохраняем доп. поля
+                    ## Сыровато, требует доработки - нужно сделать по аналогии со словарями
                     #Helper::tad($fields_all);
                     $fields = (array)$fields_all[$locale_sign];
                     if (count($fields)) {

@@ -176,7 +176,7 @@ $(document).ready(function() {
 	            }
 
 	            var str = 	'<a href="#" class="map-dot js-map-dot' + admin_class + '" style="top: ' + value.posY + 'px; left: ' + value.posX + 'px;" data-id="' + index + '">'+
-	                '<i class="map-rad" style="' + style_str + '"></i>'+
+	                //'<i class="map-rad" style="' + style_str + '"></i>'+
 	                '</a>';
 
 	            return str;
@@ -204,9 +204,17 @@ $(document).ready(function() {
 			init();
 		});
 	}    
-	$('.js-admin-map').smart_map([{
-	    posX: 200, posY: 200, radius: 8
-	}]);
+	$('.js-admin-map').smart_map([
+		{
+	    	posX: 200, posY: 200
+		}
+	]);
+
+	$('.js-client-map').smart_map([
+		{
+	    	posX: 200, posY: 200
+		}
+	]);
 	
 
 });

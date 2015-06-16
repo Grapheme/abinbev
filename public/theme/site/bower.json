@@ -1,0 +1,11 @@
+{
+  "name": "gastal",
+  "private": true,
+  "dependencies": {
+    "jquery": "#^1",
+    "modernizr": "~2.8.1",
+    "fotorama": "~4.6.4",
+    "fancybox": "~2.1.5",
+    "malihu-custom-scrollbar-plugin": "~3.0.9"
+  }
+}

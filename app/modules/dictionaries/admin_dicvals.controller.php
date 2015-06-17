@@ -231,7 +231,21 @@ class AdminDicvalsController extends BaseController {
         #Helper::dd($dic_settings);
 
         ## Sortable settings
-        $sortable = ($dic->sortable && $dic->pagination == 0 && $dic->sort_by == NULL) ? true : false;
+        $sortable = ($dic->sortable && $dic->pagination == 0 && $dic->sort_by == null) ? true : false;
+
+        ## Disable sortable without needable filter options
+        if ($sortable && isset($dic_settings['disable_ordering_without_filter']) && $dic_settings['disable_ordering_without_filter']) {
+            $dic_settings['disable_ordering_without_filter'] = (array)$dic_settings['disable_ordering_without_filter'];
+            #Helper::ta($dic_settings['disable_ordering_without_filter']);
+            if (count($dic_settings['disable_ordering_without_filter'])) {
+                foreach ($dic_settings['disable_ordering_without_filter'] as $condition) {
+                    if (!Input::get('filter.fields.' . $condition)) {
+                        $sortable = false;
+                        break;
+                    }
+                }
+            }
+        }
 
         if (isset($dic_settings['sortable']) && is_callable($dic_settings['sortable']))
             $sortable = $dic_settings['sortable']($dic, $elements);
@@ -697,16 +711,17 @@ class AdminDicvalsController extends BaseController {
                 $redirect_url = NULL;
                 if (@$dic_settings['new_element_redirect'] == 'list') {
 
-                    $redirect_url = URL::route(is_numeric($dic_id) ? 'dicval.index' : 'entity.index', array('dic_id' => $dic_id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '');
+                    #$redirect_url = URL::route(is_numeric($dic_id) ? 'dicval.index' : 'entity.index', array('dic_id' => $dic_id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '');
+                    $redirect_url = Input::get('redirect');
 
                 } elseif (@is_array($dic_settings['new_element_redirect']) && isset($dic_settings['new_element_redirect']['route_name'])) {
 
-                    $redirect_url = URL::route($dic_settings['new_element_redirect']['route_name'], (array)@$dic_settings['new_element_redirect']['route_params']) . (@$dic_settings['new_element_redirect']['add_query_string'] && Request::getQueryString() ? '?' . Request::getQueryString() : '');
+                    $redirect_url = URL::route($dic_settings['new_element_redirect']['route_name'], (array)@$dic_settings['new_element_redirect']['route_params']) . (@$dic_settings['new_element_redirect']['add_query_string'] && Input::get('query_string') ? Input::get('query_string') : '');
 
                 #} elseif (@$dic_settings['new_element_redirect'] == 'new' || !@$dic_settings['new_element_redirect']) {
                 } else {
 
-                    $redirect_url = URL::route(is_numeric($dic_id) ? 'dicval.edit' : 'entity.edit', array('dic_id' => $dic_id, 'id' => $element->id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '');
+                    $redirect_url = URL::route(is_numeric($dic_id) ? 'dicval.edit' : 'entity.edit', array('dic_id' => $dic_id, 'id' => $element->id)) . (Input::get('query_string') ? Input::get('query_string') : '');
 
                 }
             }

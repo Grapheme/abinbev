@@ -1,0 +1,78 @@
+extends layout
+
+block content
+	.main-content.institutions-map
+		.content
+			.institution-page-head
+				span
+					|	Программа
+					br 
+					|	«Менеджер-стажер»
+			span.title-red Карта заведений
+			ul.breadcrumbs
+				li
+					a(href="#") Главная
+				li
+					a(href="#") Бренды
+				li
+					a(href="#") Национальные бренды
+				li
+					a(href="#")  Сибирская
+				li
+					span Корона
+			.institutions-filter
+				form(name="filter" id="institutions-filter")
+					
+					label(for="city") Город: 
+					select#city(for="filter" name="city")
+					
+					label(for="cuisine") Кухня: 
+					select#cuisine(for="filter" name="cuisine")
+
+					label(for="type") Тип заведения:
+					select#type(for="filter" name="type")
+
+			.column-left
+				.institutions-list
+					ul.institutions
+
+			.column-right
+
+				div#google-map
+					script( src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&sensor=true")
+			
+			.text
+				p Если вы хотите отдохнуть после трудового дня, отметить важное событие или просто душевно провести вечер в компании друзей и насладиться нашим пивом, эта карта поможет найти подходящее место именно для вас! Более 500 лучших ресторанов, баров, кафе и развлекательных центров по всей России, в которых представлено пиво компании «САН ИнБев».
+				p Вся информация регулярно обновляется, но и в заведениях постоянно происходят изменения. Поэтому, рекомендуем перед визитом в выбранное вами место, уточнить график работы и наличие свободных столов. Желаем приятного отдыха!
+
+			script.
+				var institutions = [
+					    {
+							'id':'01',
+							'city': 'test-sity 1',
+							'name': 'test 1',
+							'type': 'test-type 1',
+							'cuisine': 'test-cuisine-1',
+							'Ox': '300.22',
+							'Oy': '100.44'
+
+					    },
+					    {
+							'id':'02',
+							'city': 'test-sity 2',
+							'name': 'test 2',
+							'type': 'test-type 2',
+							'cuisine': 'test-cuisine-2',
+							'Ox': '300.22',
+							'Oy': '200.44'
+					    },
+					    {
+							'id':'03',
+							'city': 'test-sity 3',
+							'name': 'test 3',
+							'type': 'test-type 3',
+							'cuisine': 'test-cuisine-3',
+							'Ox': '100.33',
+							'Oy': '300.44'
+					    }
+				    ]

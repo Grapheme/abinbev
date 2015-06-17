@@ -21,6 +21,13 @@ return array(
                 'title' => 'Картинка для шапки',
                 'type' => 'image',
             ),
+            'slogan' => array(
+                'title' => 'Слоган для шапки',
+                'type' => 'textarea',
+                'others' => [
+                    'style' => 'height:50px',
+                ],
+            ),
         );
     },
 

@@ -278,6 +278,7 @@ class PublicPagesController extends BaseController {
                 : []
         ;
 
+        $page->page_meta_settings = $page_meta_settings;
 
         #Helper::tad($page);
         #Helper::dd($page->blocks['pervyy_blok']->meta->content);

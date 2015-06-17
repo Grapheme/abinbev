@@ -69,13 +69,40 @@ class AdminPagesPageController extends BaseController {
 
         Allow::permission($this->module['group'], 'view');
 
-        $pages = $this->essence->where('version_of', NULL)->orderBy('start_page', 'DESC')->orderBy('name', 'ASC')->with('blocks')->get();
+        $pages = $this->essence
+            ->where('version_of', NULL)
+            ->orderBy('start_page', 'DESC')
+            ->with('blocks')
+        ;
+
+        $order_bys = ['date' => 'created_at', 'name' => 'name', 'url' => 'slug'];
+        $order_types = ['asc', 'desc'];
+
+        $order_by = Input::get('order_by');
+        $order_type = $order_type_tmp = Input::get('order_type');
+
+        $order_by_tmp = @$order_bys[$order_by];
+
+        if (!$order_by_tmp) {
+            $order_by_tmp = 'name';
+        }
+
+        if (!$order_type_tmp || !in_array($order_type_tmp, $order_types)) {
+            $order_type_tmp = 'asc';
+        }
+
+        setcookie('admin__pages__order_by', $order_by, time()+60*60*24*30);
+        setcookie('admin__pages__order_type', $order_type, time()+60*60*24*30);
+
+        $pages = $pages->orderBy($order_by_tmp, $order_type_tmp);
+
+        $pages = $pages->get();
 
         #Helper::tad($pages);
 
         $locales = $this->locales;
 
-        return View::make($this->module['tpl'] . 'index', compact('pages', 'locales'));
+        return View::make($this->module['tpl'] . 'index', compact('pages', 'locales', 'order_by', 'order_type'));
     }
 
 
@@ -274,8 +301,16 @@ class AdminPagesPageController extends BaseController {
                 ## PAGES_BLOCKS - update
                 if (count($blocks)) {
                     foreach ($blocks as $block_id => $block_data) {
-                        $block_data['slug'] = @$block_data['slug'] ? $block_data['slug'] : $block_data['name'];
-                        $block_data['slug'] = Helper::translit($block_data['slug']);
+
+                        if (Allow::action('pages', 'advanced', true, false)) {
+
+                            if (isset($block_data['slug'])) {
+
+                                $block_data['slug'] = trim($block_data['slug']) != '' ? $block_data['slug'] : $block_data['name'];
+                                $block_data['slug'] = Helper::translit($block_data['slug']);
+                            }
+                        }
+
                         #$block_data['settings'] = json_encode($block_data['settings']);
                         $block = $this->pages_blocks->find($block_id);
                         if (is_object($block)) {
@@ -353,9 +388,18 @@ class AdminPagesPageController extends BaseController {
             ## PAGES_BLOCKS - create
             if (count($blocks_new)) {
                 foreach ($blocks_new as $null => $block_data) {
+
                     $block_data['page_id'] = $id;
-                    $block_data['slug'] = @$block_data['slug'] ? $block_data['slug'] : $block_data['name'];
-                    $block_data['slug'] = Helper::translit($block_data['slug']);
+
+                    if (Allow::action('pages', 'advanced', true, false)) {
+
+                        if (isset($block_data['slug'])) {
+
+                            $block_data['slug'] = trim($block_data['slug']) != '' ? $block_data['slug'] : $block_data['name'];
+                            $block_data['slug'] = Helper::translit($block_data['slug']);
+                        }
+                    }
+
                     $this->pages_blocks->create($block_data);
                 }
             }
@@ -554,11 +598,20 @@ class AdminPagesPageController extends BaseController {
 
         $input = Input::all();
         $locales = Helper::withdraw($input, 'locales');
-        $input['template'] = @$input['template'] ? $input['template'] : NULL;
-        $input['slug'] = @$input['slug'] ? $input['slug'] : $input['name'];
-        $input['slug'] = Helper::translit($input['slug']);
 
         if (Allow::action('pages', 'advanced', true, false)) {
+
+            if (isset($input['template'])) {
+
+                $input['template'] = trim($input['template']) != '' ? $input['template'] : NULL;
+            }
+
+            if (isset($input['slug'])) {
+
+                $input['slug'] = trim($input['slug']) != '' ? $input['slug'] : $input['name'];
+                $input['slug'] = Helper::translit($input['slug']);
+            }
+
             $input['settings']['system_block'] = isset($input['settings']['system_block']) ? 1 : 0;
         }
 

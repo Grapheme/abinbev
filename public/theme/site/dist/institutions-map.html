@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>ABInBev</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory-->
+    <link rel="stylesheet" href="styles/vendor.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/vendor/modernizr.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header"><a href="/" class="logo"></a>
+        <ul class="main-menu">
+          <li><a href="/">О компании</a></li>
+          <li><a href="/brand.html">Бренды</a></li>
+          <li><a href="/">Пивоварение</a></li>
+          <li><a href="/">Пресс-центр</a></li>
+          <li><a href="/">Производство</a></li>
+          <li><a href="/">Социальная ответственность</a></li>
+          <li><a href="/">Карьера</a></li>
+          <li><a href="/">Культура потребления пива</a></li>
+          <li><a href="/">Раскрытие информации</a></li>
+        </ul>
+        <div class="search-field">
+          <form name="search">
+            <input for="search" placeholder="Поиск по сайту">
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="main-content institutions-map">
+      <div class="content">
+        <div class="institution-page-head"><span>	Программа<br>	«Менеджер-стажер»</span></div><span class="title-red">Карта заведений</span>
+        <ul class="breadcrumbs">
+          <li><a href="#">Главная</a></li>
+          <li><a href="#">Бренды</a></li>
+          <li><a href="#">Национальные бренды</a></li>
+          <li><a href="#"> Сибирская</a></li>
+          <li><span>Корона</span></li>
+        </ul>
+        <div class="institutions-filter">
+          <form name="filter" id="institutions-filter">
+            <label for="city">Город: </label>
+            <select id="city" for="filter" name="city"></select>
+            <label for="cuisine">Кухня: </label>
+            <select id="cuisine" for="filter" name="cuisine"></select>
+            <label for="type">Тип заведения:</label>
+            <select id="type" for="filter" name="type"></select>
+          </form>
+        </div>
+        <div class="column-left">
+          <div class="institutions-list">
+            <ul class="institutions"></ul>
+          </div>
+        </div>
+        <div class="column-right">
+          <div id="google-map">
+            <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&amp;sensor=true"></script>
+          </div>
+        </div>
+        <div class="text">
+          <p>Если вы хотите отдохнуть после трудового дня, отметить важное событие или просто душевно провести вечер в компании друзей и насладиться нашим пивом, эта карта поможет найти подходящее место именно для вас! Более 500 лучших ресторанов, баров, кафе и развлекательных центров по всей России, в которых представлено пиво компании «САН ИнБев».</p>
+          <p>Вся информация регулярно обновляется, но и в заведениях постоянно происходят изменения. Поэтому, рекомендуем перед визитом в выбранное вами место, уточнить график работы и наличие свободных столов. Желаем приятного отдыха!</p>
+        </div>
+        <script>
+          var institutions = [
+          	    {
+          			'id':'01',
+          			'city': 'test-sity 1',
+          			'name': 'test 1',
+          			'type': 'test-type 1',
+          			'cuisine': 'test-cuisine-1',
+          			'Ox': '300.22',
+          			'Oy': '100.44'
+          
+          	    },
+          	    {
+          			'id':'02',
+          			'city': 'test-sity 2',
+          			'name': 'test 2',
+          			'type': 'test-type 2',
+          			'cuisine': 'test-cuisine-2',
+          			'Ox': '300.22',
+          			'Oy': '200.44'
+          	    },
+          	    {
+          			'id':'03',
+          			'city': 'test-sity 3',
+          			'name': 'test 3',
+          			'type': 'test-type 3',
+          			'cuisine': 'test-cuisine-3',
+          			'Ox': '100.33',
+          			'Oy': '300.44'
+          	    }
+              ]
+        </script>
+      </div>
+    </div>
+    <footer>
+      <div class="content">
+        <ul class="left">
+          <li><a>8 800 200 74  86 – телефон горячей линии</a></li>
+          <li><a href="#">Контакты</a></li>
+          <li><a href="#">Карта сайта</a></li>
+          <li><a href="mailto:hotline@inbev.com">hotline@inbev.com</a></li>
+        </ul>
+        <p class="right">© 2015 «SUN InBev»</p>
+      </div>
+    </footer>
+    <script src="scripts/vendor.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

@@ -41,6 +41,23 @@ return array(
         );
     },
 
+    /**
+     * MENUS - дополнительные пункты верхнего меню, под названием словаря.
+     */
+    'menus' => function($dic, $dicval = NULL) {
+        $menus = array();
+        $menus[] = array('raw' => '<br/>');
+
+        #$lists = Config::get('temp.lists');
+        $brand_type = Config::get('site.brand_type');
+
+        /**
+         * Добавляем доп. элементы в меню, в данном случае: выпадающие поля для организации фильтрации записей по их свойствам
+         */
+        $menus[] = Helper::getDicValMenuDropdown('brand_type', 'Все типы', $brand_type, $dic);
+        return $menus;
+    },
+
     'slug_label' => 'URL-адрес',
 
     /*
@@ -50,4 +67,10 @@ return array(
     */
 
     'seo' => ['title', 'description', 'keywords'],
+
+    /**
+     * Запретить сортировку записей, если не выбраны элементы для фильтрации
+     * Можно указывать список - массивом: ['city', 'category']
+     */
+    'disable_ordering_without_filter' => 'brand_type',
 );

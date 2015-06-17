@@ -58,9 +58,9 @@ return array(
 
 
     'brand_type' => [
+        'global'        => 'Глобальные бренды',
         'international' => 'Международные бренды',
         'national'      => 'Национальные бренды',
-        'others'        => 'Другие бренды',
     ],
 
 );

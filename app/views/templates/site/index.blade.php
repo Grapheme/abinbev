@@ -6,11 +6,17 @@
 ?>
 @extends(Helper::layout())
 <?
+/*
 $header_image_id = isset($page_meta_settings['fields']['image']) ? $page_meta_settings['fields']['image'] : NULL;
 $header_image = NULL;
 if (is_numeric($header_image_id) && $header_image_id) {
     $header_image = Photo::find($header_image_id);
 }
+*/
+
+$slides = Dic::valuesBySlug('slider', null, ['fields', 'textfields'], true, true, true);
+$slides = DicLib::loadImages($slides, 'image');
+#Helper::tad($slides);
 ?>
 
 
@@ -21,31 +27,28 @@ if (is_numeric($header_image_id) && $header_image_id) {
 @section('content')
 
     <div class="main-content">
-        <div class="content">
-            <div data-nav="dots" data-arrows="false" data-click="false" data-swipe="false" data-width="1140" data-height="350" data-autoplay="true" data-loop="true" class="slider fotorama">
-                <div class="slide-item">
-                    <div class="img-holder"><img src="{{ Config::get('site.theme_path') }}/images/slide-1.png"></div>
-                    <div class="content-holder">
-                        <h3>Мировой лидер в пивоварении</h3>
-                        <p>	2012-ый год компания «САН ИнБев» завершила с ростом<br>	показателя EBITDA, который по итогам года составил 257<br>	миллионов долларов в Зоне Центральной и Восточной<br>	Европы, что на 19% превысило показатель предыдущего года.</p><a href="#">Узнать больше</a>
-                    </div>
-                </div>
-                <div class="slide-item">
-                    <div class="img-holder"><img src="{{ Config::get('site.theme_path') }}/images/slide-1.png"></div>
-                    <div class="content-holder">
-                        <h3>2Мировой лидер в пивоварении</h3>
-                        <p>	2012-ый год компания «САН ИнБев» завершила с ростом<br>	показателя EBITDA, который по итогам года составил 257<br>	миллионов долларов в Зоне Центральной и Восточной<br>	Европы, что на 19% превысило показатель предыдущего года.</p><a href="#">Узнать больше</a>
-                    </div>
-                </div>
-                <div class="slide-item">
-                    <div class="img-holder"><img src="{{ Config::get('site.theme_path') }}/images/slide-1.png"></div>
-                    <div class="content-holder">
-                        <h3>3Мировой лидер в пивоварении</h3>
-                        <p>	2012-ый год компания «САН ИнБев» завершила с ростом<br>	показателя EBITDA, который по итогам года составил 257<br>	миллионов долларов в Зоне Центральной и Восточной<br>	Европы, что на 19% превысило показатель предыдущего года.</p><a href="#">Узнать больше</a>
-                    </div>
+
+        @if (isset($slides) && count($slides))
+            <div class="content">
+                <div data-nav="dots" data-arrows="false" data-click="false" data-swipe="false" data-width="1140" data-height="350" data-autoplay="true" data-loop="true" class="slider fotorama">
+                    @foreach ($slides as $slide)
+                        <div class="slide-item">
+                            <div class="img-holder"><img src="{{ $slide->img_full('image') }}"></div>
+                            <div class="content-holder">
+                                <h3>{{ $slide->name }}</h3>
+                                @if ($slide->content)
+                                    <p>{{ $slide->content }}</p>
+                                @endif
+                                @if ($slide->link && $slide->link_text)
+                                    <a href="{{ $slide->link }}">{{ $slide->link_text }}</a>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
+        @endif
+
         <div class="content">
             <div class="row-head">
                 <h3>О компании</h3>
@@ -134,27 +137,30 @@ if (is_numeric($header_image_id) && $header_image_id) {
                 </div>
             </div>
         </div>
-        <div class="content">
 
-            НАСТРОЙКИ МЕТА-ЗАПИСИ ГЛАВНОЙ СТРАНИЦЫ (для текущего языка)
+        @if (0)
+            <div class="content">
 
-            {{ Helper::ta($page_meta_settings) }}
+                НАСТРОЙКИ МЕТА-ЗАПИСИ ГЛАВНОЙ СТРАНИЦЫ (для текущего языка)
 
-            КАРТИНКА ДЛЯ ШАПКИ
+                {{ Helper::ta($page_meta_settings) }}
 
-            {{ Helper::ta($header_image) }}
+                КАРТИНКА ДЛЯ ШАПКИ
 
-            {{ is_object($header_image) ? '<img src="' . $header_image->full() . '" /><br/>' . PHP_EOL : '' }}
+                {{ Helper::ta($header_image) }}
 
-            ОСНОВНОЕ МЕНЮ
+                {{ is_object($header_image) ? '<img src="' . $header_image->full() . '" /><br/>' . PHP_EOL : '' }}
 
-            {{ Menu::placement('main_menu') }}
+                ОСНОВНОЕ МЕНЮ
 
-            КОНТЕНТ ГЛАВНОЙ СТРАНИЦЫ
+                {{ Menu::placement('main_menu') }}
 
-            {{ Helper::ta($page) }}
+                КОНТЕНТ ГЛАВНОЙ СТРАНИЦЫ
 
-        </div>
+                {{ Helper::ta($page) }}
+
+            </div>
+        @endif
     </div>
 
 @stop

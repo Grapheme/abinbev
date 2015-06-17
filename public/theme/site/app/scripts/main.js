@@ -2,13 +2,6 @@ $(document).ready(function() {
 
 	$('fotorama').fotorama();
 
-	$('.fix').hover(function() {
-		$('.fix-2').addClass('smoke');
-			$('.fix-2.smoke').hover(function() {
-			$('.responsibility-page-head').addClass('kek');
-		});
-	});
-
 	$("a.product").fancybox({
 		width: 643,
 		height: 435,
@@ -16,6 +9,13 @@ $(document).ready(function() {
 		afterShow : function(){
 			$(".about-product").mCustomScrollbar();
 		}
+	});
+
+	$('.fix').hover(function() {
+		$('.fix-2').addClass('smoke');
+			$('.fix-2.smoke').hover(function() {
+			$('.responsibility-page-head').addClass('kek');
+		});
 	});
 
 	$.fn.smart_map = function(map_array) {
@@ -176,7 +176,7 @@ $(document).ready(function() {
 	            }
 
 	            var str = 	'<a href="#" class="map-dot js-map-dot' + admin_class + '" style="top: ' + value.posY + 'px; left: ' + value.posX + 'px;" data-id="' + index + '">'+
-	                '<i class="map-rad" style="' + style_str + '"></i>'+
+	                //'<i class="map-rad" style="' + style_str + '"></i>'+
 	                '</a>';
 
 	            return str;
@@ -204,9 +204,33 @@ $(document).ready(function() {
 			init();
 		});
 	}    
-	$('.js-admin-map').smart_map([{
-	    posX: 200, posY: 200, radius: 8
-	}]);
-	
+	$('.js-admin-map').smart_map([
+		{
+	    	posX: 200, posY: 200
+		}
+	]);
 
+	$('.js-client-map').smart_map([
+		{
+	    	posX: 200, posY: 200
+		}
+	]);
+
+	/* GOOGLE MAP */
+
+	function initialize() {
+
+           var mapOptions = {
+             center: new google.maps.LatLng(47.2249488, 39.7239244),
+             zoom: 17,
+             mapTypeId: google.maps.MapTypeId.ROADMAP,
+             draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true
+           };
+           var map = new google.maps.Map(document.getElementById("google-map"),
+               mapOptions);
+
+           var myLatlng = new google.maps.LatLng(47.2248231, 39.7273844);
+
+         }
+         google.maps.event.addDomListener(window, 'load', initialize);
 });

@@ -44,35 +44,16 @@
         <div class="institutions-filter">
           <form name="filter" id="institutions-filter">
             <label for="city">Город: </label>
-            <select id="city" for="filter" name="city">
-              <option>Любой</option>
-              <option>Москва</option>
-              <option>Ростов-на-Дону</option>
-            </select>
-            <label for="kitchen">Кухня: </label>
-            <select id="kitchen" for="filter" name="kitchen">
-              <option>Любая</option>
-              <option>Европейская</option>
-              <option>Американская</option>
-            </select>
+            <select id="city" for="filter" name="city"></select>
+            <label for="cuisine">Кухня: </label>
+            <select id="cuisine" for="filter" name="cuisine"></select>
             <label for="type">Тип заведения:</label>
-            <select id="type" for="filter" name="type">
-              <option>Любое</option>
-              <option>Бар</option>
-              <option>Ресторан</option>
-            </select>
+            <select id="type" for="filter" name="type"></select>
           </form>
         </div>
         <div class="column-left">
           <div class="institutions-list">
-            <ul class="institutions">
-              <li><span class="name">Тест</span><span class="type"> Тест Тест</span><span class="kitchen"> ТестТест</span><span class="adress"> Тест Тест Тест Тест Тест Тест</span></li>
-              <li><span class="name">Тест</span><span class="type"> Тест Тест</span><span class="kitchen"> ТестТест</span><span class="adress"> Тест Тест Тест Тест Тест Тест</span></li>
-              <li><span class="name">Тест</span><span class="type"> Тест Тест</span><span class="kitchen"> ТестТест</span><span class="adress"> Тест Тест Тест Тест Тест Тест</span></li>
-              <li><span class="name">Тест</span><span class="type"> Тест Тест</span><span class="kitchen"> ТестТест</span><span class="adress"> Тест Тест Тест Тест Тест Тест</span></li>
-              <li><span class="name">Тест</span><span class="type"> Тест Тест</span><span class="kitchen"> ТестТест</span><span class="adress"> Тест Тест Тест Тест Тест Тест</span></li>
-              <li><span class="name">Тест</span><span class="type"> Тест Тест</span><span class="kitchen"> ТестТест</span></li>
-            </ul>
+            <ul class="institutions"></ul>
           </div>
         </div>
         <div class="column-right">
@@ -84,6 +65,38 @@
           <p>Если вы хотите отдохнуть после трудового дня, отметить важное событие или просто душевно провести вечер в компании друзей и насладиться нашим пивом, эта карта поможет найти подходящее место именно для вас! Более 500 лучших ресторанов, баров, кафе и развлекательных центров по всей России, в которых представлено пиво компании «САН ИнБев».</p>
           <p>Вся информация регулярно обновляется, но и в заведениях постоянно происходят изменения. Поэтому, рекомендуем перед визитом в выбранное вами место, уточнить график работы и наличие свободных столов. Желаем приятного отдыха!</p>
         </div>
+        <script>
+          var institutions = [
+          	    {
+          			'id':'01',
+          			'city': 'test-sity 1',
+          			'name': 'test 1',
+          			'type': 'test-type 1',
+          			'cuisine': 'test-cuisine-1',
+          			'Ox': '300.22',
+          			'Oy': '100.44'
+          
+          	    },
+          	    {
+          			'id':'02',
+          			'city': 'test-sity 2',
+          			'name': 'test 2',
+          			'type': 'test-type 2',
+          			'cuisine': 'test-cuisine-2',
+          			'Ox': '300.22',
+          			'Oy': '200.44'
+          	    },
+          	    {
+          			'id':'03',
+          			'city': 'test-sity 3',
+          			'name': 'test 3',
+          			'type': 'test-type 3',
+          			'cuisine': 'test-cuisine-3',
+          			'Ox': '100.33',
+          			'Oy': '300.44'
+          	    }
+              ]
+        </script>
       </div>
     </div>
     <footer>

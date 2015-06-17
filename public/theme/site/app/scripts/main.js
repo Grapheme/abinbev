@@ -225,9 +225,9 @@ $(document).ready(function() {
            var mapOptions = {
              center: new google.maps.LatLng(47.2249488, 39.7239244),
              zoom: 17,
-             mapTypeId: google.maps.MapTypeId.ROADMAP,
-             draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true
-           };
+			 mapTypeId: google.maps.MapTypeId.ROADMAP,
+			 draggable: true, zoomControl: true, scrollwheel: false, disableDoubleClickZoom: true, navigationControl: true, disableDefaultUI: false
+			};
            var map = new google.maps.Map(document.getElementById("google-map"),
                mapOptions);
 
@@ -235,4 +235,19 @@ $(document).ready(function() {
 
          }
          google.maps.event.addDomListener(window, 'load', initialize);
+
+    /* СТРУКТУРИРОВАНИЕ ИЗ JSON */
+
+    $.each(institutions, function(index, value){
+    	$('#city').append('<option value="' + value.city + '">' + value.city + '</option>');
+    	$('#cuisine').append('<option value="' + value.cuisine + '">' + value.cuisine + '</option>');
+    	$('#type').append('<option value="' + value.type + '">' + value.type + '</option>');
+
+    	$('.institutions-list .institutions').append('<li>' + 
+    		'<span class="name">' + value.name + '</span>' +
+    		'<span class="type">' + value.type + '</span>' +
+    		'<span class="cuisine">' + value.cuisine + '</span>' +
+    		'<span class="adress">' + value.adress + '</span>' +
+			'</li>');
+    });
 });

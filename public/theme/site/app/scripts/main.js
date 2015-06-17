@@ -11,6 +11,8 @@ $(document).ready(function() {
 		}
 	});
 
+	$('.institutions-list').mCustomScrollbar();
+
 	$('.fix').hover(function() {
 		$('.fix-2').addClass('smoke');
 			$('.fix-2.smoke').hover(function() {

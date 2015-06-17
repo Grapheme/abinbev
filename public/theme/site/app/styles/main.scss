@@ -99,15 +99,22 @@ header {
 
 	&.responsibility {
 		.column-right {
-			width: 720px  !important;
+			width: 720px !important;
 		}
 	}
 
-	&.brand, &.responsibility {
+	#google-map {
+		width: 864px;
+		height: 615px;
+		overflow: hidden;
+	}
+
+	&.brand, &.responsibility, &.institutions-map {
+
 		.content {
 			background: #fff;
 
-			.brand-page-head, .responsibility-page-head {
+			.brand-page-head, .responsibility-page-head, .institution-page-head {
 				width: 100%;
 				height: 285px;
 				background-image: url(../images/drunk.jpg);
@@ -126,16 +133,6 @@ header {
 					background: rgba(255, 255, 255, 0.5);
 					font-family: verdana, opensans, sans-serif, arial;
 					box-shadow: 10px 0 0 rgba(255, 255, 255, .5), -10px 0 0 rgba(255, 255, 255, .5);
-				}
-			}
-
-			.responsibility-page-head {
-				background-image: url(../images/serenity.jpg);
-				position: relative;
-				transition: 5s linear;
-
-				span {
-					top: 125px;
 				}
 			}
 
@@ -159,6 +156,40 @@ header {
 				right: 1px;
 				width: 1px;
 				height: 1px;
+			}
+
+			.breadcrumbs {
+				list-style: none;
+				margin: 20px 0 40px 0;
+				padding: 0;
+
+				li {
+					display: inline-block;
+					font-family: verdana, opensans, sans-serif, arial;
+
+					&:after {
+						content: '>';
+						padding: 0 5px;
+						font-size: 15px;
+					}
+
+					a {
+						text-decoration: none;
+						color: #000;
+					}
+
+					&:last-child {
+						color: #dd212b;
+
+						a {
+							color: #dd212b !important;
+						}
+
+						&:after {
+							display: none;
+						}
+					}
+				}
 			}
 
 			.column-left {
@@ -198,7 +229,7 @@ header {
 					box-shadow: 7px 8px 0px 0px #d5d5d5;
 					z-index: 1;
 
-					ul.lvl1 {
+					ul {
 						list-style: none;
 						margin: 0;
 						padding: 0;
@@ -217,7 +248,7 @@ header {
 									}
 								}
 
-								&.active {
+								&.active a {
 									color: #dd212b;
 								}
 							}
@@ -228,7 +259,7 @@ header {
 							padding-bottom: 10px;
 							margin: 12px 0px;
 
-							&.active {
+							&.active a {
 								color: #dd212b;
 							}
 
@@ -237,29 +268,29 @@ header {
 								display: block;
 								padding: 0 0 12px 0;
 							}
-						}
 
-						ul {
-							list-style: none;
-							margin: 10px 0 0 0;
-							padding: 0;
-							margin-left: 17px;
-
-							li {
-								bottom: 0px;
-								margin: 0;
+							ul {
+								list-style: none;
+								margin: 10px 0 0 0;
 								padding: 0;
+								margin-left: 17px;
 
-								&.active {
-									color: #dd212b;
-								}
-								
-								a {
-									text-decoration: none;
-									color: #000;
+								li {
+									bottom: 0px;
+									margin: 0;
+									padding: 0;
 
-									&:hover {
+									&.active a {
 										color: #dd212b;
+									}
+									
+									a {
+										text-decoration: none;
+										color: #000;
+
+										&:hover {
+											color: #dd212b;
+										}
 									}
 								}
 							}
@@ -279,40 +310,6 @@ header {
 				padding: 0 0px 0 41px;
 				box-sizing: border-box;
 				font-family: verdana, opensans, sans-serif, arial;
-
-				.breadcrumbs {
-					list-style: none;
-					margin: 20px 0 40px 0;
-					padding: 0;
-
-					li {
-						display: inline-block;
-						font-family: verdana, opensans, sans-serif, arial;
-
-						&:after {
-							content: '>';
-							padding: 0 5px;
-							font-size: 15px;
-						}
-
-						a {
-							text-decoration: none;
-							color: #000;
-						}
-
-						&:last-child {
-							color: #dd212b;
-
-							a {
-								color: #dd212b !important;
-							}
-
-							&:after {
-								display: none;
-							}
-						}
-					}
-				}
 
 				h2 {
 					color: #922028;
@@ -394,6 +391,117 @@ header {
 		}
 	}
 
+	&.institutions-map {
+
+		.title-red {
+			background: #dd1e31;
+			color: #fff;
+			text-transform: uppercase;
+			padding: 5px 7px;
+			margin: 0;
+			margin-left: 36px;
+			position: absolute;
+			bottom: 0;
+			font-size: 22px;
+			font-weight: normal;
+			font-family: verdana, opensans, sans-serif, arial;
+			top: -37px;
+			left: -36px;
+			display: block;
+			height: 27px;
+			z-index: 3;
+		}
+
+		.text {
+			padding: 15px 36px 90px 36px;
+			clear: both;
+
+			p {
+				font-family: verdana, opensans, sans-serif, arial;
+			}
+		}
+
+		.breadcrumbs {
+			margin-left: 36px !important;
+		}
+
+		.institutions-filter {
+			margin-bottom: 15px;
+			
+			form {
+				
+				label {
+					font-family: verdana, opensans, sans-serif, arial;
+					font-size: 15px;
+					margin-right: 5px;
+
+					&[for="city"] {
+						margin-left: 35px;
+					}
+				}
+
+				select {
+					font-size: 15px;
+					margin-right: 10px;
+				}
+
+				#city {
+					margin-right: 110px;
+				}
+			}
+		}
+
+		.column-left {
+			width: 239px !important;
+			height: 615px;
+			padding-bottom: 0 !important;
+
+
+			.institutions-list {
+					height: 100%;
+					width: 210px;
+
+				ul.institutions {
+					padding: 0;
+					list-style: none;
+
+					li {
+
+						padding-bottom: 15px;
+						border-bottom: 1px #e6e2d8 solid;
+
+						span {
+							display: block;
+							font-family: verdana, opensans, sans-serif, arial;
+							padding: 5px;
+							box-sizing: border-box;
+
+							&.name {
+								font-weight: bold;
+								text-transform: capitalize;
+							}
+
+							&.type {
+								font-style: italic;
+								color: #7e7e7e;
+							}
+
+							&.adress {
+								background: #f7f5ef;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.column-right {
+			padding: 0 !important;
+			width: 864px !important;
+			margin: 0 !important;
+		}
+	}
+
 	.content {
 		width: 1140px;
 		overflow: hidden;
@@ -425,7 +533,7 @@ header {
 							left: 0;
 						}
 
-						&.fotorama__active  {
+						&.fotorama__active {
 
 							.fotorama__dot {
 								background: #8f2028;
@@ -750,7 +858,7 @@ footer {
 }
 
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
-  background-color: #e4162d !important;
+	background-color: #e4162d !important;
 }
 
 /* RUSSIYANIA MAP */
@@ -758,7 +866,7 @@ footer {
 .map-container {
 	overflow: hidden;
 
-	.map-block{
+	.map-block {
 		background-image: url('../images/map.png');
 		height: 376px;
 		width: 691px;
@@ -774,10 +882,4 @@ footer {
 			position: absolute;
 		}
 	}
-}
-
-#google-map {
-	width: 864px;
-	height: 615px;
-	overflow: hidden;
 }

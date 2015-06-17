@@ -1,59 +1,84 @@
 extends layout
 
 block content
-	.main-content.responsibility
+	.main-content.institutions-map
 		.content
-			.responsibility-page-head
+			.institution-page-head
 				span
-					|	Построение высоких марок
+					|	Программа
 					br 
-					|	качества
-				h2 Социальная ответственность
-				.fix-2
-				.fix
+					|	«Менеджер-стажер»
+			span.title-red Карта заведений
+			ul.breadcrumbs
+				li
+					a(href="#") Главная
+				li
+					a(href="#") Бренды
+				li
+					a(href="#") Национальные бренды
+				li
+					a(href="#")  Сибирская
+				li
+					span Корона
+			.institutions-filter
+				form(name="filter" id="institutions-filter")
+					
+					label(for="city") Город: 
+					select#city(for="filter" name="city")
+						option Любой
+						option Москва
+						option Ростов-на-Дону
+					
+					label(for="kitchen") Кухня: 
+					select#kitchen(for="filter" name="kitchen")
+						option Любая
+						option Европейская
+						option Американская
+
+					label(for="type") Тип заведения:
+					select#type(for="filter" name="type")
+						option Любое
+						option Бар
+						option Ресторан
 
 			.column-left
-				.brand-menu
-					ul.lvl1.responsibility
-						li 
-							span
-								a(href="/") Ангарск
-						li 
-							span 
-								a(href="/") Волжский
-						li 
-							span 
-								a(href="/") Иваново
-						li 
-							span 
-								a(href="/") Клин
-						li 
-							span 
-								a(href="/") Саранск
-						li 
-							span 
-								a(href="/") Омск
-						li 
-							span 
-								a(href="/") Пермь
-						li 
-							span 
-								a(href="/") Раскрытие информации
+				.institutions-list
+					ul.institutions
+						li
+							span.name Тест
+							span.type  Тест Тест
+							span.kitchen  ТестТест
+							span.adress  Тест Тест Тест Тест Тест Тест
+						li
+							span.name Тест
+							span.type  Тест Тест
+							span.kitchen  ТестТест
+							span.adress  Тест Тест Тест Тест Тест Тест
+						li
+							span.name Тест
+							span.type  Тест Тест
+							span.kitchen  ТестТест
+							span.adress  Тест Тест Тест Тест Тест Тест
+						li
+							span.name Тест
+							span.type  Тест Тест
+							span.kitchen  ТестТест
+							span.adress  Тест Тест Тест Тест Тест Тест
+						li
+							span.name Тест
+							span.type  Тест Тест
+							span.kitchen  ТестТест
+							span.adress  Тест Тест Тест Тест Тест Тест
+						li
+							span.name Тест
+							span.type  Тест Тест
+							span.kitchen  ТестТест
 
 			.column-right
-				ul.breadcrumbs
-					li
-						a(href="#") Главная
-					li
-						a(href="#") Бренды
-					li
-						a(href="#") Национальные бренды
-					li
-						a(href="#")  Сибирская
-					li
-						span Корона
 
 				div#google-map
 					script( src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&sensor=true")
+			
+			.text
 				p Если вы хотите отдохнуть после трудового дня, отметить важное событие или просто душевно провести вечер в компании друзей и насладиться нашим пивом, эта карта поможет найти подходящее место именно для вас! Более 500 лучших ресторанов, баров, кафе и развлекательных центров по всей России, в которых представлено пиво компании «САН ИнБев».
 				p Вся информация регулярно обновляется, но и в заведениях постоянно происходят изменения. Поэтому, рекомендуем перед визитом в выбранное вами место, уточнить график работы и наличие свободных столов. Желаем приятного отдыха!

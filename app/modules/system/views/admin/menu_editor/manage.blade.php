@@ -144,7 +144,11 @@
                                         </p>
                                     @else
                                         <label class="select">
-                                            {{ Form::select('page_id', $pages->lists('name', 'id')) }}
+                                            <?php
+                                                $pages_for_select = $pages->lists('name', 'id');
+                                                natsort($pages_for_select);
+                                            ?>
+                                            {{ Form::select('page_id', $pages_for_select) }}
                                         </label>
 
                                         <label class="margin-top-10">

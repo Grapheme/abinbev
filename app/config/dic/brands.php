@@ -28,6 +28,13 @@ return array(
                     #'maxFiles' => 2,
                 ),
             ),
+            'slogan' => array(
+                'title' => 'Слоган для шапки',
+                'type' => 'textarea',
+                'others' => [
+                    'style' => 'height:50px',
+                ],
+            ),
             'image' => array(
                 'title' => 'Изображение бутылки',
                 'type' => 'image',

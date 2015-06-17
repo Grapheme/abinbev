@@ -348,6 +348,12 @@ class Page extends BaseModel {
             ;
     }
 
+
+    public function field($name = '') {
+
+        return @$this->page_meta_settings['fields'][$name] ?: null;
+    }
+
 }
 
 if (!function_exists('pageslug')) {

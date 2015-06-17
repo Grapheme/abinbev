@@ -25,18 +25,16 @@ if (is_numeric($header_image_id) && $header_image_id) {
             <div class="responsibility-page-head" @if($header_image) style="background-image:url({{ $header_image->full() }})" @endif>
                 <span>
 
-                    {{ $page->block('slogan') }}
+                    {{ nl2br($page->field('slogan')) }}
 
                 </span>
                 <div class="fix-2"></div>
                 <div class="fix"></div>
             </div>
             <div class="column-left">
-                <div class="brand-menu">
 
-                    {{ Menu::placement($menu) }}
+                {{ Menu::placement($menu) }}
 
-                </div>
             </div>
             <div class="column-right">
                 <ul class="breadcrumbs">
@@ -44,15 +42,13 @@ if (is_numeric($header_image_id) && $header_image_id) {
                     <li><span>{{ $page->name }}</span></li>
                 </ul>
 
-                {{ $page->block('content') }}
+{{--                {{ $page->block('content') }}--}}
 
-{{--
                 @if (count($page->blocks))
                     @foreach ($page->blocks as $block)
                         {{ $page->block($block->slug) }}
                     @endforeach
                 @endif
---}}
 
             </div>
         </div>

@@ -127,20 +127,6 @@ header {
 					font-family: verdana, opensans, sans-serif, arial;
 					box-shadow: 10px 0 0 rgba(255, 255, 255, .5), -10px 0 0 rgba(255, 255, 255, .5);
 				}
-
-				h2 {
-					background: #dd1e31;
-					color: #fff;
-					text-transform: uppercase;
-					padding: 5px 7px;
-					margin: 0;
-					margin-left: 36px;
-					position: absolute;
-					bottom: 0;
-					font-size: 22px;
-					font-weight: normal;
-					font-family: verdana, opensans, sans-serif, arial;
-				}
 			}
 
 			.responsibility-page-head {
@@ -180,8 +166,27 @@ header {
 				width: 316px;
 				margin-left: 36px;
 				float: left;
-				overflow: hidden;
-				z-index: 1;
+				// overflow: hidden;
+				position: relative;
+
+				.title-red {
+					background: #dd1e31;
+					color: #fff;
+					text-transform: uppercase;
+					padding: 5px 7px;
+					margin: 0;
+					margin-left: 36px;
+					position: absolute;
+					bottom: 0;
+					font-size: 22px;
+					font-weight: normal;
+					font-family: verdana, opensans, sans-serif, arial;
+					top: -37px;
+					left: -36px;
+					display: block;
+					height: 27px;
+					z-index: 3;
+				}
 
 				.brand-menu {
 					font-family: myriadpro, opensans, sans-serif, arial;
@@ -191,6 +196,7 @@ header {
 					box-sizing: border-box;
 					background: #ebebeb;
 					box-shadow: 7px 8px 0px 0px #d5d5d5;
+					z-index: 1;
 
 					ul.lvl1 {
 						list-style: none;
@@ -210,6 +216,10 @@ header {
 										color: #dd212b;
 									}
 								}
+
+								&.active {
+									color: #dd212b;
+								}
 							}
 						}
 
@@ -218,6 +228,10 @@ header {
 							padding-bottom: 10px;
 							margin: 12px 0px;
 
+							&.active {
+								color: #dd212b;
+							}
+
 							span {
 								border-bottom: 1px #d5d5d5 solid;
 								display: block;
@@ -225,7 +239,7 @@ header {
 							}
 						}
 
-						.lvl2 {
+						ul {
 							list-style: none;
 							margin: 10px 0 0 0;
 							padding: 0;
@@ -235,12 +249,16 @@ header {
 								bottom: 0px;
 								margin: 0;
 								padding: 0;
+
+								&.active {
+									color: #dd212b;
+								}
 								
 								a {
 									text-decoration: none;
 									color: #000;
 
-									&:hover, &.active {
+									&:hover {
 										color: #dd212b;
 									}
 								}
@@ -756,4 +774,10 @@ footer {
 			position: absolute;
 		}
 	}
+}
+
+#google-map {
+	width: 864px;
+	height: 615px;
+	overflow: hidden;
 }

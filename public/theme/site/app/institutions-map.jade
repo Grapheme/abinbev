@@ -24,13 +24,13 @@ block content
 				form(name="filter" id="institutions-filter")
 					
 					label(for="city") Город: 
-					select#city(for="filter" name="city")
+					select#city(for="filter" name="city").js-filter-select
 					
 					label(for="cuisine") Кухня: 
-					select#cuisine(for="filter" name="cuisine")
+					select#cuisine(for="filter" name="cuisine").js-filter-select
 
 					label(for="type") Тип заведения:
-					select#type(for="filter" name="type")
+					select#type(for="filter" name="type").js-filter-select
 
 			.column-left
 				.institutions-list
@@ -53,8 +53,8 @@ block content
 							'name': 'test 1',
 							'type': 'test-type 1',
 							'cuisine': 'test-cuisine-1',
-							'Ox': '300.22',
-							'Oy': '100.44',
+							'lat': '55.753927',
+							'lng': '37.620819',
 							'adress' : 'test test test test'
 
 					    },
@@ -64,8 +64,8 @@ block content
 							'name': 'test 2',
 							'type': 'test-type 2',
 							'cuisine': 'test-cuisine-2',
-							'Ox': '300.22',
-							'Oy': '200.44',
+							'lat': '55.754639',
+							'lng': '37.619131',
 							'adress' : 'test test test test'
 					    },
 					    {
@@ -74,8 +74,8 @@ block content
 							'name': 'test 3',
 							'type': 'test-type 3',
 							'cuisine': 'test-cuisine-3',
-							'Ox': '100.33',
-							'Oy': '300.44',
+							'lat': '55.753616',
+							'lng': '37.616355',
 							'adress' : 'test test test test'
 					    }
 				    ]

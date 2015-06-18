@@ -1,6 +1,6 @@
 <?
 /**
- * MENU_PLACEMENTS: main_menu=Основное меню|about_menu=Меню "О компании"
+ * MENU_PLACEMENTS: main_menu=Основное меню|about_menu=Меню "О компании"|brewing_menu=Меню "Пивоварение"|responsibility_menu=Меню "Соц. ответственность"|culture_menu=Меню "Культура потребления"|disclosure_menu=Меню "Раскрытие информации"|career_menu=Меню "Карьера"|footer_menu=Меню в подвале сайта
  */
 ?>
 <!DOCTYPE html>

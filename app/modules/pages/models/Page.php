@@ -336,6 +336,18 @@ class Page extends BaseModel {
         return $slug;
     }
 
+
+    public static function name_by_sysname($sysname) {
+        $pages = Config::get('app.pages');
+        $page = @$pages['by_sysname'][$sysname];
+        $name = NULL;
+        if (isset($page) && is_object($page)) {
+            $name = $page->name;
+        }
+        return $name;
+    }
+
+
     public function h1_or_name() {
         $locale = Config::get('app.locale');
         return (
@@ -365,6 +377,12 @@ if (!function_exists('pageslug')) {
 if (!function_exists('pageurl')) {
     function pageurl($sysname, $params = []) {
         return URL::route('page', [pageslug($sysname)] + $params);
+    }
+}
+
+if (!function_exists('pagename')) {
+    function pagename($sysname) {
+        return Page::name_by_sysname($sysname);
     }
 }
 

@@ -11,6 +11,8 @@ $header_image = NULL;
 if (is_numeric($header_image_id) && $header_image_id) {
     $header_image = Photo::find($header_image_id);
 }
+if (!isset($breadcrumbs))
+    $breadcrumbs = null;
 ?>
 
 
@@ -39,6 +41,9 @@ if (is_numeric($header_image_id) && $header_image_id) {
             <div class="column-right">
                 <ul class="breadcrumbs">
                     <li><a href="{{ URL::route('mainpage') }}">Главная</a></li>
+
+                    {{ $breadcrumbs }}
+
                     <li><span>{{ $page->name }}</span></li>
                 </ul>
 

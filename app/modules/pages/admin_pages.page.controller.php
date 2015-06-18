@@ -96,7 +96,8 @@ class AdminPagesPageController extends BaseController {
 
         $pages = $pages->orderBy($order_by_tmp, $order_type_tmp);
 
-        $pages = $pages->get();
+        $pages = $pages->paginate(30);
+        #$pages = $pages->get();
 
         #Helper::tad($pages);
 

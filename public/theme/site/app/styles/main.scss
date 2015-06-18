@@ -100,7 +100,7 @@ header {
 	.brand-menu {
 		font-family: myriadpro, opensans, sans-serif, arial;
 		width: 309px;
-		padding: 13px 13px 20px 22px;
+		padding: 25px 13px 20px 22px;
 		margin-top: -8px;
 		box-sizing: border-box;
 		background: #ebebeb;
@@ -139,6 +139,11 @@ header {
 
 				&.active a {
 					color: #dd212b;
+				}
+
+				a {
+					color: #000;
+					text-decoration: none;
 				}
 
 				span {
@@ -464,6 +469,7 @@ header {
 				ul.institutions {
 					padding: 0;
 					list-style: none;
+					display: none;
 
 					li {
 

@@ -410,6 +410,12 @@
                 <a href="{{ URL::route('page.edit', '++page_id++') }}" target="_blank">перейти</a>
             </label>
 
+            <label class="checkbox">
+                <input type="checkbox" name="items[%N%][use_active_hierarchy]" value="1" class="use_active_hierarchy click_hidded_option" %use_active_hierarchy% />
+                <i></i>
+                Активность согласно иерархии страниц
+            </label>
+
             {{ Form::hidden('items[%N%][type]', 'page') }}
             {{ Form::hidden('items[%N%][page_id]', '%page_id%') }}
             {{ Form::hidden('null', '<без названия>', array('class' => 'default_text_for_title')) }}

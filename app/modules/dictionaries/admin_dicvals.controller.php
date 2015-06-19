@@ -282,6 +282,7 @@ class AdminDicvalsController extends BaseController {
 
         $total_elements = DicVal::where('dic_id', $dic->id)->where('version_of', '=', NULL)->count();
 
+        $this->callHook('before_index_view_create_edit', $dic, $elements);
         $this->callHook('before_index_view', $dic, $elements);
 
 
@@ -316,6 +317,7 @@ class AdminDicvalsController extends BaseController {
 
         $this->checkDicUrl($dic, $dic_id);
         $this->callHook('before_all', $dic);
+        $this->callHook('before_index_view_create_edit', $dic);
         $this->callHook('before_create_edit', $dic);
         $this->callHook('before_create', $dic);
 
@@ -353,6 +355,7 @@ class AdminDicvalsController extends BaseController {
         $element = $element->first();
 
         $this->callHook('before_all', $dic);
+        $this->callHook('before_index_view_create_edit', $dic, null, $element);
         $this->callHook('before_create_edit', $dic, $element);
         $this->callHook('before_create', $dic, $element);
 

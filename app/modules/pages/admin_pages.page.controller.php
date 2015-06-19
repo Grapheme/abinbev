@@ -16,6 +16,10 @@ class AdminPagesPageController extends BaseController {
             $entity = $class::$entity;
 
             Route::get($class::$group . '/{id}/restore', array('as' => $entity . '.restore', 'uses' => $class . "@restore"));
+
+            Route::get($class::$group . '/hierarchy', array('as' => $entity . '.hierarchy', 'uses' => $class . "@getHierarchy"));
+            Route::post($class::$group . '/nestedsetmodel', array('as' => $class::$group . '.nestedsetmodel', 'uses' => $class . "@postAjaxNestedSetModel"));
+
             Route::resource($class::$group /* . "/" . $entity */, $class, array(
                 'except' => array('show'), 'names' => array(
                     'index' => $entity . '.index', 'create' => $entity . '.create', 'store' => $entity . '.store', 'edit' => $entity . '.edit', 'update' => $entity . '.update', 'destroy' => $entity . '.destroy',
@@ -103,7 +107,9 @@ class AdminPagesPageController extends BaseController {
 
         $locales = $this->locales;
 
-        return View::make($this->module['tpl'] . 'index', compact('pages', 'locales', 'order_by', 'order_type'));
+        $list_mode = 1;
+
+        return View::make($this->module['tpl'] . 'index', compact('pages', 'locales', 'order_by', 'order_type', 'list_mode'));
     }
 
 
@@ -671,6 +677,127 @@ class AdminPagesPageController extends BaseController {
 
         return Response::json($json_request, 200);
         #return '';
+    }
+
+
+
+    public function getHierarchy() {
+
+        $pages = $this->essence
+            ->where('version_of', NULL)
+            ->orderBy('start_page', 'DESC')
+            ->get()
+        ;
+
+        #Helper::tad($pages);
+
+        if (count($pages)) {
+
+            $temp = new Collection();
+            foreach ($pages as $page) {
+                $temp[$page->id] = $page;
+            }
+            $pages = $temp;
+        }
+
+        $pages2 = clone $pages;
+
+        /*
+        $temp = [];
+        $lft = 0;
+        foreach ($pages as $page) {
+            ++$lft;
+            $rgt = $lft+1;
+            $temp[$page->id] = [
+                'id' => $page->id,
+                'lft' => $lft,
+                'rgt' => $rgt,
+            ];
+            ++$lft;
+        }
+        Helper::tad(json_encode($temp));
+        #*/
+
+        $current_hierarchy = Storage::where('module', 'pages')->where('name', 'hierarchy')->pluck('value');
+        #Helper::tad($current_hierarchy);
+
+        /*
+        $temp = [
+            1 => [
+                'lft' => 1,
+                'rgt' => 2,
+            ],
+        ];
+        Helper::tad(json_encode($temp));
+        */
+
+        $elements = json_decode($current_hierarchy, false);
+        #Helper::tad($elements);
+        #dd($elements);
+
+        $id_left_right = [];
+        if (count($elements)) {
+
+            foreach($elements as $element_id => $element) {
+                #dd($element);
+                $id_left_right[$element_id] = array();
+                $id_left_right[$element_id]['left'] = $element->left;
+                $id_left_right[$element_id]['right'] = $element->right;
+            }
+        }
+        #Helper::tad($id_left_right);
+
+        $hierarchy = (new NestedSetModel())->get_hierarchy_from_id_left_right($id_left_right);
+        #Helper::tad($hierarchy);
+
+        $total_elements = count($pages);
+
+        $sortable = 9;
+
+        return View::make($this->module['tpl'] . 'hierarchy', compact('pages', 'pages2', 'hierarchy', 'total_elements', 'sortable'));
+    }
+
+
+    public function postAjaxNestedSetModel() {
+
+        #$input = Input::all();
+
+        $data = Input::get('data');
+        $data = json_decode($data, 1);
+        #Helper::dd($data);
+        $dic_id = NULL;
+        $dic = NULL;
+
+        if (count($data)) {
+
+            $id_left_right = (new NestedSetModel())->get_id_left_right($data);
+
+            #Helper::tad($id_left_right);
+
+            Storage::where('module', 'pages')->where('name', 'hierarchy')->update(['value' => json_encode($id_left_right)]);
+
+            #if (count($id_left_right)) {
+
+                /*
+                $dicvals = DicVal::whereIn('id', array_keys($id_left_right))->get();
+
+                if (count($dicvals)) {
+                    foreach ($dicvals as $dicval) {
+                        if (!$dic_id)
+                            $dic_id = $dicval->dic_id;
+                        $dicval->lft = $id_left_right[$dicval->id]['left'];
+                        $dicval->rgt = $id_left_right[$dicval->id]['right'];
+                        $dicval->save();
+                    }
+                    if ($dic_id) {
+                        $dic = Dic::by_id($dic_id);
+                    }
+                }
+                */
+            #}
+        }
+
+        return Response::make('1');
     }
 
 

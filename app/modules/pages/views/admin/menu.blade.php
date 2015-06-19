@@ -22,14 +22,26 @@ $menus[] = array(
         'class' => 'btn btn-primary'
 );
 
-if (isset($pages)) {
+$menus[] = array(
+        'link' => URL::route($module['entity'] . '.hierarchy', []),
+        'title' => 'Режим &laquo;Иерархия&raquo;',
+        'class' => 'btn btn-warning'
+);
+
+if (isset($pages) && isset($list_mode) && $list_mode) {
+
+    if (!isset($order_by))
+        $order_by = null;
+
+    if (!isset($order_type))
+        $order_type = null;
 
     $order_by_param = 'name';
     $order_by_text = 'По названию';
-    $title = ($order_by_param == $order_by ? '<i class="fa fa-check"></i> ' : '') . $order_by_text . ' ';
+    $title = (isset($order_by) && $order_by_param == $order_by ? '<i class="fa fa-check"></i> ' : '') . $order_by_text . ' ';
     $link = '?order_by=' . $order_by_param . '&order_type=';
     if ($order_by_param == $order_by) {
-        if ($order_type == 'asc') {
+        if (isset($order_type) && $order_type == 'asc') {
             $title .= '<i class="fa fa-sort-alpha-asc"></i>';
             $link .= 'desc';
         } else {
@@ -51,8 +63,8 @@ if (isset($pages)) {
     $order_by_text = 'По дате';
     $title = ($order_by_param == $order_by ? '<i class="fa fa-check"></i> ' : '') . $order_by_text . ' ';
     $link = '?order_by=' . $order_by_param . '&order_type=';
-    if ($order_by_param == $order_by) {
-        if ($order_type == 'asc') {
+    if (isset($order_by) && $order_by_param == $order_by) {
+        if (isset($order_type) && $order_type == 'asc') {
             $title .= '<i class="fa fa-sort-numeric-asc"></i>';
             $link .= 'desc';
         } else {
@@ -74,8 +86,8 @@ if (isset($pages)) {
     $order_by_text = 'По URL';
     $title = ($order_by_param == $order_by ? '<i class="fa fa-check"></i> ' : '') . $order_by_text . ' ';
     $link = '?order_by=' . $order_by_param . '&order_type=';
-    if ($order_by_param == $order_by) {
-        if ($order_type == 'asc') {
+    if (isset($order_by) && $order_by_param == $order_by) {
+        if (isset($order_type) && $order_type == 'asc') {
             $title .= '<i class="fa fa-sort-alpha-asc"></i>';
             $link .= 'desc';
         } else {

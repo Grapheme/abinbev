@@ -6,7 +6,42 @@
 ?>
 @extends(Helper::layout())
 <?
-$institutions = [];
+$institutions = Dic::valuesBySlug('ontrade', null, ['fields', 'textfields'], true, true, true);
+#Helper::tad($institutions);
+$temp = [];
+$city = [];
+$cuisine = [];
+$type = [];
+if (isset($institutions) && count($institutions)) {
+    foreach ($institutions as $place) {
+        $temp[] = [
+            'id' => $place->id,
+            'city' => $place->city,
+            'name' => $place->name,
+            'type' => $place->type,
+            'cuisine' => $place->cuisine,
+            'lat' => $place->lat,
+            'lng' => $place->lng,
+            'address' => $place->address,
+            'operation_time' => $place->operation_time,
+            'phone' => $place->phone,
+            'site' => $place->site,
+            'description' => $place->description,
+        ];
+    }
+
+    $city = Dic::valuesBySlug('ontrade_city', null, []);
+    $city = $city->lists('name', 'id');
+    #Helper::tad($city);
+
+    $cuisine = Dic::valuesBySlug('ontrade_cuisine', null, []);
+    $cuisine = $cuisine->lists('name', 'id');
+    #Helper::tad($cuisine);
+
+    $type = Dic::valuesBySlug('ontrade_types', null, []);
+    $type = $type->lists('name', 'id');
+    #Helper::tad($type);
+}
 ?>
 
 
@@ -57,39 +92,10 @@ $institutions = [];
 
             </div>
             <script>
-                var institutions = [
-                    {
-                        'id':'01',
-                        'city': 'test-sity 1',
-                        'name': 'test 1',
-                        'type': 'test-type 1',
-                        'cuisine': 'test-cuisine-1',
-                        'lat': '55.753927',
-                        'lng': '37.620819',
-                        'adress' : 'test test test test'
-
-                    },
-                    {
-                        'id':'02',
-                        'city': 'test-sity 2',
-                        'name': 'test 2',
-                        'type': 'test-type 2',
-                        'cuisine': 'test-cuisine-2',
-                        'lat': '55.754639',
-                        'lng': '37.619131',
-                        'adress' : 'test test test test'
-                    },
-                    {
-                        'id':'03',
-                        'city': 'test-sity 3',
-                        'name': 'test 3',
-                        'type': 'test-type 3',
-                        'cuisine': 'test-cuisine-3',
-                        'lat': '55.753616',
-                        'lng': '37.616355',
-                        'adress' : 'test test test test'
-                    }
-                ]
+                var institutions = {{ json_encode($temp, JSON_UNESCAPED_UNICODE) }};
+                var city = {{ json_encode($city, JSON_UNESCAPED_UNICODE) }};
+                var cuisine = {{ json_encode($cuisine, JSON_UNESCAPED_UNICODE) }};
+                var type = {{ json_encode($type, JSON_UNESCAPED_UNICODE) }};
             </script>
         </div>
     </div>

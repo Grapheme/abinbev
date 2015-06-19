@@ -66,6 +66,25 @@ $(document).ready(function() {
 			function admin_click(e) {
 				var x = e.pageX - map_block.offset().left;
 				var y = e.pageY - map_block.offset().top;
+				var net_x = 999;
+				var max_diff = 999;
+				for(var i = 0; i < 691; i = i+12) {
+					var diff = Math.abs(x - i);
+					if(diff < max_diff) {
+						max_diff = diff;
+						net_x = i;
+					}
+				}
+				var max_diff_y = 999;
+				for(var i = 0; i < 376; i = i+12) {
+					var diff = Math.abs(y - i);
+					if(diff < max_diff_y) {
+						max_diff_y = diff;
+						net_y = i;
+					}
+				}
+				x = net_x - 6;
+				y = net_y - 6;
 				if(parent.find('.js-admin-dot').length) {
 					parent.find('.js-admin-dot').css({
 						'left': x,
@@ -128,36 +147,6 @@ $(document).ready(function() {
 				openDesc(new_id);
 			}
 
-			function openDesc(id) {
-				var id_array = map_array[id];
-				var items = id_array.items;
-				var city = id_array.name;
-				var posX = id_array.posX;
-				var posY = id_array.posY;
-
-				var items_str = '';
-				$.each(items, function(index, value){
-					items_str += '<li>' + value;
-				});
-				map_desc.find('.js-desc-title').text(city);
-				map_desc.find('.js-desc-items').html(items_str);
-				setTimeout(function(){
-					map_desc.find('.js-desc-items').customScrollbar();
-				}, 1);
-
-				var map_block_x = map_block.width()/4 - posX;
-				var map_block_y = map_block.height()/2 - posY;
-				var transform_str = transform('translateX(' + map_block_x + 'px) translateY(' + map_block_y + 'px)');
-
-				map_block.attr('style', transform_str);
-
-				$('.js-map-dot[data-id=' + id + ']').addClass('active')
-				.siblings().removeClass('active');
-
-				map_desc.show();
-				active_id = parseInt(id);
-			}
-
 			function closeDesc() {
 				map_block.attr('style', transform('translateX(0px) translateY(0px)'));
 				$('.js-map-dot').removeClass('active');
@@ -177,7 +166,7 @@ $(document).ready(function() {
 					var admin_class = '';
 				}
 
-				var str = 	'<a href="#" class="map-dot js-map-dot' + admin_class + '" style="top: ' + value.posY + 'px; left: ' + value.posX + 'px;" data-id="' + index + '">'+
+				var str = 	'<a href="#" data-index="' + value.index + '" class="map-dot js-map-dot' + admin_class + '" style="top: ' + value.posY + 'px; left: ' + value.posX + 'px;" data-id="' + index + '">'+
 					//'<i class="map-rad" style="' + style_str + '"></i>'+
 					'</a>';
 
@@ -212,44 +201,84 @@ $(document).ready(function() {
 		}
 	]);
 
-	$('.js-client-map').smart_map([
-		{
-	    	posX: 200, posY: 200
-		}
-	]);
+	/* ТУЛТИП ТОЧЕЧНОЙ КАРТЫ */
+
+	$.each(plant, function(index, value){
+    	$('.brand-menu ul').prepend(
+    		'<li><span><a href="#" class="js-popup-hover" data-index="' + index + '">' + value.city + '</a></span></li>'
+    	);
+
+    	//$('.brand-menu ul li').mouseover(cross_pop_up);
+    });
+
+	var dots_array = [];
+	$.each(plant, function(i,v){
+		dots_array.push({
+			posX: v.left,
+			posY: v.top,
+			index: i
+		});
+	});
+
+	$('.js-client-map').smart_map(dots_array);
+
+	$(document).on('mouseover', '.js-map-dot, .js-popup-hover', function(){
+    	var value = plant[$(this).attr('data-index')];
+		$('.js-map-dot[data-index="' + $(this).attr('data-index') + '"]').append (
+			'<div class="popup">' + 
+			'<div class="title">' +
+			value.city +
+			'</div>' +
+			
+			'<p>' +
+			value.name + ' ' + value.post_code + ' ' + value.adress +
+			'</p>' +
+
+			'<p>' +
+			value.phone +
+			'</p>' +
+
+			'</div>'
+		);
+
+		$('.popup').show();
+	});
+
+	$(document).on('mouseout', '.js-map-dot, .js-popup-hover', function(){
+		$('.popup').remove();
+	});
 
 	/* GOOGLE MAP */
 
 	var map;
 	function initialize() {
+		var bounds = new google.maps.LatLngBounds();
+		var markerIcon = { url: '../images/ico-marker.png'};
+		var mapOptions = {
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			draggable: true, zoomControl: true, scrollwheel: false, disableDoubleClickZoom: true, navigationControl: true, disableDefaultUI: false
+		};
+		map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
 
-			var bounds = new google.maps.LatLngBounds();
-			var markerIcon = { url: '../images/ico-marker.png'};
-			var mapOptions = {
-				mapTypeId: google.maps.MapTypeId.ROADMAP,
-				draggable: true, zoomControl: true, scrollwheel: false, disableDoubleClickZoom: true, navigationControl: true, disableDefaultUI: false
-			};
-			map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
-
-			$.each(institutions, function(index, value){
-				value.marker = new google.maps.Marker({
-					position: new google.maps.LatLng(value.lat, value.lng),
-					map: map,
-					icon: markerIcon,
-		        });
-	        
-				google.maps.event.addListener(value.marker, 'click', function() {
-					adress-window.setContent('<div class="adress-window">' + value.adress + '</div>');
-					adress-window.open(map, this);
-				});
-				bounds.extend(value.marker.position);
-				
-      			//}, index * 300);
-    		});
-    		map.fitBounds(bounds);
-			sorting();
-         }
-		google.maps.event.addDomListener(window, 'load', initialize);
+		$.each(institutions, function(index, value){
+			value.marker = new google.maps.Marker({
+				position: new google.maps.LatLng(value.lat, value.lng),
+				map: map,
+				icon: markerIcon,
+	        });
+        
+			google.maps.event.addListener(value.marker, 'click', function() {
+				adress-window.setContent('<div class="adress-window">' + value.adress + '</div>');
+				adress-window.open(map, this);
+			});
+			bounds.extend(value.marker.position);
+			
+  			//}, index * 300);
+		});
+		map.fitBounds(bounds);
+		sorting();
+    }
+	google.maps.event.addDomListener(window, 'load', initialize);
 
     /* СТРУКТУРИРОВАНИЕ СПИСКА ЗАВЕДЕНИЙ */
 

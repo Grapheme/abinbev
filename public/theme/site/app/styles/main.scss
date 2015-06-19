@@ -883,9 +883,45 @@ footer {
 		.map-dot {
 			width: 11px;
 			height: 11px;
+			margin-top: -6px;
+			margin-left: -6px;
 			border-radius: 12px;
 			background-color: #c3141b;
 			position: absolute;
+		}
+
+		.popup {
+			background: #c3151b;
+			border-radius: 5px;
+			width: 320px;
+			color: #fff;
+			padding: 5px;
+			position: absolute;
+			bottom: 20px;
+			left: -10px;
+			z-index: 99;
+			//display: none;
+
+			&:after {
+				content: '';
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 0 6px 15px 6px;
+				border-color: transparent transparent #c3151b transparent;
+				position: relative;
+				bottom: -4px;
+				left: 5px;
+			}
+
+			.title {
+				font-size: 12px;
+				font-weight: 700;
+			}
+
+			p {
+				font-size: 10px;
+			}
 		}
 	}
 }
